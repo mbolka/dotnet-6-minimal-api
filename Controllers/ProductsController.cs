@@ -3,11 +3,18 @@ namespace WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebApi.Entities;
+using WebApi.Flags;
 
 [ApiController]
 [Route("[controller]")]
 public class ProductsController : ControllerBase
 {
+    private readonly Settings _settings;
+
+    public ProductsController(Settings settings)
+    {
+        _settings = settings;
+    }
     private List<Product> _products = new List<Product>
     {
         new Product { Id = 1, Name = "Milo" },
@@ -17,6 +24,7 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
+        _products[0].Name = _settings.Message;
         return Ok(_products);
     }
 

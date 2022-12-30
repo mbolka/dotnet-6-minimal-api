@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
-
+string connectionString = builder.Configuration.GetConnectionString("AppConfig");
+builder.Configuration.AddAzureAppConfiguration(connectionString);
+builder.Services.Configure<WebApi.Flags.Settings>(builder.Configuration.GetSection("TestApp:Settings"));
 // add services to DI container
 {
     var services = builder.Services;
