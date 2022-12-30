@@ -7,7 +7,8 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 // add services to DI container
 {
     var services = builder.Services;
-    services.Configure<Settings>(builder.Configuration.GetSection("TestApp:Settings"));
+    var sett = new Settings(){Message = "TEST"}
+    services.Configure<Settings>(sett);
     services.AddControllers();
 }
 
