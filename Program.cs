@@ -1,13 +1,13 @@
 using Azure.Identity;
-
+using WebApi.Flags;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddAzureAppConfiguration(options =>
                     options.Connect(new Uri("https://bolek-app-configuration.azconfig.io"), new ManagedIdentityCredential()));
-builder.Services.Configure<WebApi.Flags.Settings>(builder.Configuration.GetSection("TestApp:Settings"));
 // add services to DI container
 {
     var services = builder.Services;
+    services.Configure<Settings>(builder.Configuration.GetSection("TestApp:Settings"));
     services.AddControllers();
 }
 
